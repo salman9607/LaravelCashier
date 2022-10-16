@@ -31,6 +31,10 @@
 
             <!-- Page Content -->
             <main>
+                @if(auth()->user()->trial_ends_at)
+                    <div class="alert alert-info">You have {{ now()->diffInDays(auth()->user()->trial_ends_at)  }} days of Free trial left
+                    <a href="{{route('billing')}}">Choose your plan</a> at any time </div>
+                @endif
                 {{ $slot }}
             </main>
         </div>

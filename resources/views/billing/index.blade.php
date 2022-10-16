@@ -16,6 +16,8 @@
                         @endif
                         @if(is_null($currentPlan))
                         You are now on Free Plan. Please choose plan to upgrade:
+                        @elseif(!empty($currentPlan->trial_ends_at))
+                            <div class="alert alert-info">Your Trial will end on {{ $currentPlan->trial_ends_at->toDateString() }} and your card will be charged automatically</div>
                         @endif
                             <br /><br />
                             <div class="row">
@@ -24,7 +26,7 @@
                                     <h3>{{ $plan->name }}</h3>
                                     <b>${{ number_format($plan->price / 100, 2)  }}</b>
                                     <hr />
-                                    @if($plan->stripe_plan_id === $currentPlan->stripe_price)
+                                    @if(!empty($currentPlan) && $plan->stripe_plan_id === $currentPlan->stripe_price)
                                         Your Current Plan
                                         <br>
                                     @if(!$currentPlan->onGraceperiod())

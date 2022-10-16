@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function (){
     Route::post('checkout', [\App\Http\Controllers\CheckoutController::class, 'processCheckout'])->name('checkout.process');
 
     Route::get('cancel', [\App\Http\Controllers\BillingController::class, 'cancel'])->name('cancel');
-    Route::get('resume', [\App\Http\Controllers\BillingController::class, 'resume'])->name('resume');
+    Route::get('resume', [\App\Http\Controllers\BillingController::class, 'resu me'])->name('resume');
 
     Route::get('markDefault/{methodId}', [\App\Http\Controllers\PaymentMethodController::class, 'markDefault'])->name('markDefault');
     Route::resource('payment-method', \App\Http\Controllers\PaymentMethodController::class);
