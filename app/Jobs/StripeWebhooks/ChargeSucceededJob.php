@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\WebhookClient\Models\WebhookCall;
+use App\Notifications\ChargeSuccessNotification;
 use App\Models\Payment;
 use App\Models\User;
 
@@ -32,12 +33,14 @@ class ChargeSucceededJob implements ShouldQueue
 
         if(!empty($user))
         {
-            Payment::create([
+            $payment = Payment::create([
                 'user_id' => $user->id,
                 'stripe_id' => $charge['id'],
                 'subtotal' => $charge['amount'],
                 'total' => $charge['amount'],
             ]);
+
+            $user->notify(new ChargeSuccessNotification($payment));
         }
     }
 
