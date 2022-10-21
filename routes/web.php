@@ -33,5 +33,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::resource('payment-method', \App\Http\Controllers\PaymentMethodController::class);
 });
 
+Route::stripeWebhooks('stripe-webhook');
 
 require __DIR__.'/auth.php';
