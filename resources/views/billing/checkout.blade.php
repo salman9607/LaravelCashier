@@ -10,15 +10,50 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Subscribe to {{ $plan->name  }}</div>
-
+                    <form action="{{ route('checkout.process') }}" method="POST" id="checkout-form">
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                Name or Company Name:
+                                <br>
+                                <input type="text" name="company_name" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                Address Line 1:
+                                <br>
+                                <input type="text" name="address_line_1" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                Address Line 2:
+                                <br>
+                                <input type="text" name="address_line_2" class="form-control" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4">
+                                Country:
+                                <br>
+                                <input type="text" name="country" class="form-control" value="Pakistan" required>
+                            </div>
+                            <div class="col-md-4">
+                                City:
+                                <br>
+                                <input type="text" name="city" class="form-control" required>
+                            </div>
+                            <div class="col-md-4">
+                                Postcode:
+                                <br>
+                                <input type="text" name="postcode" class="form-control">
+                            </div>
+                        </div>
+                        <br>
                         @if(session('error'))
                             <div class="alert alert-danger">{{session('error')}}</div>
                         @endif
                         Payment form will be here.
                         <div class="row">
                             <div class="col-md-6">
-                                <form action="{{ route('checkout.process') }}" method="POST" id="checkout-form">
                                     @csrf
                                     <input type="hidden" name="billing_plan_id" value="{{ $plan->id }}" />
                                     <input type="hidden" name="payment-method" id="payment-method" value="" />
@@ -34,10 +69,10 @@
                                         Pay ${{ number_format($plan->price / 100, 2) }}
                                     </button>
 
-                                </form>
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>

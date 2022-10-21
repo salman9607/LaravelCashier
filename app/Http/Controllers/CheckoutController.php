@@ -28,7 +28,15 @@ class CheckoutController extends Controller
             $request->user()->newSubscription('default', $plan->stripe_plan_id)
 //                ->trialDays(10)
                 ->create($request->input('payment-method'));
-            auth()->user()->update(['trial_ends_at' => NULL]);
+            auth()->user()->update([
+                'trial_ends_at' => NULL,
+                'company_name' => $request->input('company_name'),
+                'address_line_1' => $request->input('address_line_1'),
+                'address_line_2' => $request->input('address_line_2'),
+                'country' => $request->input('country'),
+                'city' => $request->input('city'),
+                'postcode' => $request->input('postcode'),
+            ]);
             return redirect()->route('billing')->withMessage('Subscribed Successfully');
         } catch (\Exception $e){
             return redirect()->back()->withError($e->getMessage());
