@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plan;
+use App\Models\Payment;
+use App\Services\InvoicesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,6 +12,9 @@ class BillingController extends Controller
 {
     public function index()
     {
+//        $payment = Payment::with('user')->find();
+        return (new InvoicesService())->generateInvoice('$payment');
+
         $plans = Plan::all();
         $currentPlan = auth()->user()->subscription('default') ?? NULL;
         $paymentMethods = auth()->user()->paymentMethods();
