@@ -41,9 +41,15 @@ class ChargeSuccessNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
+        $message = (new MailMessage)
                     ->line('You have been charged $.'.number_format($this->payment->total/100, 2))
                     ->line('Thank you for using our application!');
+
+        $file_path = storage_path('app/invoices/'.$this->payment->id.'.pdf');
+        if(file_exists($file_path))
+            $message->attach($file_path);
+
+        return $message;
     }
 
     /**

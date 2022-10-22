@@ -28,7 +28,7 @@ return [
     ],
 
     'currency' => [
-        'code' => 'eur',
+        'code' => 'usd',
         /*
          * Usually cents
          * Used when spelling out the amount and if your currency has decimals.
@@ -36,7 +36,7 @@ return [
          * Example: Amount in words: Eight hundred fifty thousand sixty-eight EUR and fifteen ct.
          */
         'fraction' => 'ct.',
-        'symbol'   => '€',
+        'symbol'   => '$',
         /*
          * Example: 19.00
          */
