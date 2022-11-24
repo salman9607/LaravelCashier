@@ -7,6 +7,7 @@ use App\Models\Payment;
 use App\Services\InvoicesService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\ChargeSuccessNotification;
 
 class BillingController extends Controller
 {
@@ -24,13 +25,13 @@ class BillingController extends Controller
 
     public function cancel()
     {
-         auth()->user()->subscription('default')->cancel();
-         return redirect()->route('billing');
+        auth()->user()->subscription('default')->cancel();
+        return redirect()->route('billing');
     }
 
     public function resume()
     {
-         auth()->user()->subscription('default')->resume();
-         return redirect()->route('billing');
+        auth()->user()->subscription('default')->resume();
+        return redirect()->route('billing');
     }
 }

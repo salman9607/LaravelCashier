@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\WebhookClient\Models\WebhookCall;
 use App\Notifications\ChargeSuccessNotification;
+use App\Services\InvoicesService;
 use App\Models\Payment;
 use App\Models\User;
 
@@ -40,6 +41,7 @@ class ChargeSucceededJob implements ShouldQueue
                 'total' => $charge['amount'],
             ]);
 
+            (new InvoicesService())->generateInvoice($payment);
             $user->notify(new ChargeSuccessNotification($payment));
         }
     }
