@@ -13,7 +13,7 @@ class BillingController extends Controller
     public function index()
     {
 //        $payment = Payment::with('user')->find();
-        return (new InvoicesService())->generateInvoice('$payment');
+//        return (new InvoicesService())->generateInvoice('$payment');
 
         $plans = Plan::all();
         $currentPlan = auth()->user()->subscription('default') ?? NULL;
